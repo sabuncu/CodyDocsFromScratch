@@ -1,0 +1,109 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+
+<!-- 5) This file created as a result of Add Command, for CodyDocs. -->
+<CommandTable
+	xmlns="http://schemas.microsoft.com/VisualStudio/2005-10-18/CommandTable"
+	xmlns:xs="http://www.w3.org/2001/XMLSchema">
+
+    <Extern href="stdidcmd.h"/>
+    <Extern href="vsshlids.h"/>
+
+    <!-- Modified by CodyDocs. -->
+	<Commands package="guidCodyDocsPackage">
+	    <!-- 6) b) Added for CodyDocs. -->
+	    <Menus>
+		    <Menu guid="guidCodyDocsPackageCmdSet"
+				  id="CodyDocsTopMenu"
+				  priority="0x0700"
+				  type="Menu">
+		        <!-- guidSHLMainMenu      : GUID of the menus and groups on the Visual Studio menu bar.
+			         IDG_VS_MM_TOOLSADDINS: The top level Tools menu item (after Analyze, before Extensions). 
+					 Note: Whatever id is specified, seems the menu will be placed under the Extensions menu.
+				     From here: https://docs.microsoft.com/en-us/visualstudio/extensibility/internals/guids-and-ids-of-visual-studio-menus?view=vs-2019
+			    -->
+			    <Parent guid="guidSHLMainMenu" 
+						id="IDG_VS_MM_TOOLSADDINS" />
+			    <Strings>
+				    <ButtonText>TestMenu</ButtonText>
+				    <CommandName>CodyDocs</CommandName>
+			    </Strings>
+		    </Menu>
+		</Menus>
+	  
+	    <!-- Modified by CodyDocs. -->
+	    <Groups>
+            <Group guid="guidCodyDocsPackageCmdSet" id="CodyDocsMenuGroup" priority="0x0600">
+			    <!-- 6) c) Modified by CodyDocs. 
+			         From MS Docs: Every command must have a group as its parent, 
+				     even if it is the only child in that group.
+			    -->
+			    <Parent guid="guidCodyDocsPackageCmdSet" id="CodyDocsTopMenu" />
+            </Group>
+			
+		    <Group guid="guidCodyDocsPackageCmdSet1" id="EditorContextMenuGroup" priority="0x0600">
+			    <Parent guid="guidSHLMainMenu" id="IDM_VS_CTXT_CODEWIN" />
+			</Group>
+		</Groups>
+
+	    <!-- Modified by CodyDocs. -->
+        <Buttons>
+			<Button guid="guidCodyDocsPackageCmdSet" 
+					id="EnableDisableCodyDocsCommandId" 
+					priority="0x0100" 
+					type="Button">
+				<Parent guid="guidCodyDocsPackageCmdSet" id="CodyDocsMenuGroup" />
+				<Icon guid="guidImages" id="bmpPicX" />
+				<Strings>
+					<!-- 6) d) Modified by CodyDocs. -->
+					<ButtonText>Toggle CodyDocs</ButtonText>
+				</Strings>
+			</Button>
+			
+			<Button guid="guidCodyDocsPackageCmdSet1" 
+					id="cmdidDocumentCodeSpanCommand" 
+					priority="0x0100" 
+					type="Button">
+				<Parent guid="guidCodyDocsPackageCmdSet1" id="EditorContextMenuGroup" />
+				<Strings>
+					<ButtonText>Add documentation</ButtonText>
+				</Strings>
+			</Button>
+		</Buttons>
+
+        <Bitmaps>
+			<Bitmap guid="guidImages" 
+					href="Resources\EnableDisableCodyDocsCommand.png" 
+					usedList="bmpPic1, bmpPic2, bmpPicSearch, bmpPicX, bmpPicArrows, bmpPicStrikethrough" />
+		</Bitmaps>
+    </Commands>
+
+	<!-- Modified by CodyDocs. -->
+    <Symbols>
+		<!-- Package Guid. -->
+        <GuidSymbol name="guidCodyDocsPackage" value="{32df186d-147d-4124-97ea-bb246cc58a62}" />
+
+		<!-- Guid used to group menu commands. 
+			 The first two IDSymbols are provided by default. -->
+	    <!-- Modified by CodyDocs. -->
+		<GuidSymbol name="guidCodyDocsPackageCmdSet" value="{69c0b337-59d8-4591-8cbd-a59603459d56}">
+			<IDSymbol name="CodyDocsMenuGroup" value="0x1020" />
+		    <IDSymbol name="EnableDisableCodyDocsCommandId" value="0x0100" />
+		    <!-- 6) a) Added for CodyDocs. -->
+		    <IDSymbol name="CodyDocsTopMenu" value="0x1021" />
+	    </GuidSymbol>
+
+        <GuidSymbol name="guidImages" value="{a9aa1e61-bf34-44e1-9e36-9bc36156e201}">
+            <IDSymbol name="bmpPic1" value="1" />
+		    <IDSymbol name="bmpPic2" value="2" />
+		    <IDSymbol name="bmpPicSearch" value="3" />
+		    <IDSymbol name="bmpPicX" value="4" />
+		    <IDSymbol name="bmpPicArrows" value="5" />
+		    <IDSymbol name="bmpPicStrikethrough" value="6" />
+        </GuidSymbol>
+    
+		<GuidSymbol value="{ead5342a-ac56-49a0-8f2f-de611268440b}" name="guidCodyDocsPackageCmdSet1">
+		  <IDSymbol value="4128" name="EditorContextMenuGroup" />
+		  <IDSymbol value="256" name="cmdidDocumentCodeSpanCommand" />
+		</GuidSymbol>
+	</Symbols>
+</CommandTable>
