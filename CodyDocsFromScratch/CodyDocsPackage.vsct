@@ -1,6 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 
-<!-- 5) This file created as a result of Add Command, for CodyDocs. -->
 <CommandTable
 	xmlns="http://schemas.microsoft.com/VisualStudio/2005-10-18/CommandTable"
 	xmlns:xs="http://www.w3.org/2001/XMLSchema">
@@ -8,57 +7,62 @@
     <Extern href="stdidcmd.h"/>
     <Extern href="vsshlids.h"/>
 
-    <!-- Modified by CodyDocs. -->
 	<Commands package="guidCodyDocsPackage">
-	    <!-- 6) b) Added for CodyDocs. -->
-	    <Menus>
-		    <Menu guid="guidCodyDocsPackageCmdSet"
-				  id="CodyDocsTopMenu"
-				  priority="0x0700"
-				  type="Menu">
-		        <!-- guidSHLMainMenu      : GUID of the menus and groups on the Visual Studio menu bar.
-			         IDG_VS_MM_TOOLSADDINS: The top level Tools menu item (after Analyze, before Extensions). 
-					 Note: Whatever id is specified, seems the menu will be placed under the Extensions menu.
-				     From here: https://docs.microsoft.com/en-us/visualstudio/extensibility/internals/guids-and-ids-of-visual-studio-menus?view=vs-2019
-			    -->
-			    <Parent guid="guidSHLMainMenu" 
-						id="IDG_VS_MM_TOOLSADDINS" />
-			    <Strings>
-				    <ButtonText>TestMenu</ButtonText>
-				    <CommandName>CodyDocs</CommandName>
-			    </Strings>
-		    </Menu>
-		</Menus>
-	  
-	    <!-- Modified by CodyDocs. -->
 	    <Groups>
-            <Group guid="guidCodyDocsPackageCmdSet" id="CodyDocsMenuGroup" priority="0x0600">
-			    <!-- 6) c) Modified by CodyDocs. 
-			         From MS Docs: Every command must have a group as its parent, 
-				     even if it is the only child in that group.
-			    -->
-			    <Parent guid="guidCodyDocsPackageCmdSet" id="CodyDocsTopMenu" />
+			<!-- Hierarchy level 1). -->
+            <Group guid="guidCodyDocsPackageCmdSet"
+				   id="ToolsGroup" 
+				   priority="0x0600">
+			    <Parent guid="guidSHLMainMenu"
+					    id="IDM_VS_MENU_TOOLS" />
             </Group>
 			
-		    <Group guid="guidCodyDocsPackageCmdSet1" id="EditorContextMenuGroup" priority="0x0600">
-			    <Parent guid="guidSHLMainMenu" id="IDM_VS_CTXT_CODEWIN" />
+			<!-- Hierarchy level 3). -->
+            <Group guid="guidCodyDocsPackageCmdSet"
+				   id="ToolsSubGroup" 
+				   priority="0x0600">
+			    <Parent guid="guidCodyDocsPackageCmdSet"
+					    id="ToolsMenu" />
+            </Group>
+			
+			<!-- Container for the editor context menu entry. -->
+		    <Group guid="guidCodyDocsPackageCmdSet1" 
+				   id="EditorContextMenuGroup"
+				   priority="0x0600">
+			    <Parent guid="guidSHLMainMenu" 
+					    id="IDM_VS_CTXT_CODEWIN" />
 			</Group>
 		</Groups>
 
-	    <!-- Modified by CodyDocs. -->
+	    <Menus>
+			<!-- Hierarchy level 2). -->
+		    <Menu guid="guidCodyDocsPackageCmdSet"
+				  id="ToolsMenu"
+				  priority="0x0600"
+				  type="Menu">
+			    <Parent guid="guidCodyDocsPackageCmdSet" 
+						id="ToolsGroup" />
+			    <Strings>
+				    <ButtonText>CodyDocs Tools Menu Entry</ButtonText>
+				</Strings>
+		    </Menu>
+		</Menus>
+	  
         <Buttons>
+			<!-- Hierarchy level 4). -->
 			<Button guid="guidCodyDocsPackageCmdSet" 
-					id="EnableDisableCodyDocsCommandId" 
+					id="EnableDisableCodyDocsButton" 
 					priority="0x0100" 
 					type="Button">
-				<Parent guid="guidCodyDocsPackageCmdSet" id="CodyDocsMenuGroup" />
+				<Parent guid="guidCodyDocsPackageCmdSet"
+					    id="ToolsSubGroup" />
 				<Icon guid="guidImages" id="bmpPicX" />
 				<Strings>
-					<!-- 6) d) Modified by CodyDocs. -->
-					<ButtonText>Toggle CodyDocs</ButtonText>
+					<ButtonText>Toggle CodyDocs Button</ButtonText>
 				</Strings>
 			</Button>
 			
+			<!-- Editor context menu entry. -->
 			<Button guid="guidCodyDocsPackageCmdSet1" 
 					id="cmdidDocumentCodeSpanCommand" 
 					priority="0x0100" 
@@ -77,19 +81,14 @@
 		</Bitmaps>
     </Commands>
 
-	<!-- Modified by CodyDocs. -->
     <Symbols>
-		<!-- Package Guid. -->
         <GuidSymbol name="guidCodyDocsPackage" value="{32df186d-147d-4124-97ea-bb246cc58a62}" />
 
-		<!-- Guid used to group menu commands. 
-			 The first two IDSymbols are provided by default. -->
-	    <!-- Modified by CodyDocs. -->
 		<GuidSymbol name="guidCodyDocsPackageCmdSet" value="{69c0b337-59d8-4591-8cbd-a59603459d56}">
-			<IDSymbol name="CodyDocsMenuGroup" value="0x1020" />
-		    <IDSymbol name="EnableDisableCodyDocsCommandId" value="0x0100" />
-		    <!-- 6) a) Added for CodyDocs. -->
-		    <IDSymbol name="CodyDocsTopMenu" value="0x1021" />
+			<IDSymbol name="ToolsGroup"				 	 value="0x1020" />
+		    <IDSymbol name="ToolsMenu" 					 value="0x1021" />
+			<IDSymbol name="ToolsSubGroup"				 value="0x1022" />
+		    <IDSymbol name="EnableDisableCodyDocsButton" value="0x0100" />
 	    </GuidSymbol>
 
         <GuidSymbol name="guidImages" value="{a9aa1e61-bf34-44e1-9e36-9bc36156e201}">
